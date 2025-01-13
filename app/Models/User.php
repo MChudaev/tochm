@@ -8,13 +8,28 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Maize\Searchable\HasSearch;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
     use HasRoles;
-
+    use HasSearch;
+    /**
+     * Get the model's searchable attributes.
+     *
+     * @return array
+     */
+    public function getSearchableAttributes(): array
+    {
+        return [
+            'last_name' => 5,
+            'name' => 2,
+            'email' => 2,
+            'phone_number' => 2,
+        ];
+    }
     /**
      * The attributes that are mass assignable.
      *

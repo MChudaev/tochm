@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Мебель',
+    'title' => 'AdminLTE 3',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,13 +63,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>',
-    // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-
-    'logo_img' => 'img//logo/logo_white.svg',
-    'logo_img_class' => 'brand-image  elevation-3',
-    //  'logo_img_class' => 'brand-image img-circle elevation-3',
-
+    'logo' => '<b>Admin</b>LTE',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Admin Logo',
@@ -114,7 +110,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => false,
+        'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
@@ -261,29 +257,34 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'dashboard',
-    'logout_url' => 'admin/logout',
+    'dashboard_url' => 'home',
+    'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
+    'disable_darkmode_routes' => false,
 
     /*
     |--------------------------------------------------------------------------
-    | Laravel Mix
+    | Laravel Asset Bundling
     |--------------------------------------------------------------------------
     |
-    | Here we can enable the Laravel Mix option for the admin panel.
+    | Here we can enable the Laravel Asset Bundling option for the admin panel.
+    | Currently, the next modes are supported: 'mix', 'vite' and 'vite_js_only'.
+    | When using 'vite_js_only', it's expected that your CSS is imported using
+    | JavaScript. Typically, in your application's 'resources/js/app.js' file.
+    | If you are not using any of these, leave it as 'false'.
     |
-    | For detailed instructions you can look the laravel mix section here:
+    | For detailed instructions you can look the asset bundling section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     |
     */
 
-    'enabled_laravel_mix' => false,
-    'laravel_mix_css_path' => 'css/app.css',
-    'laravel_mix_js_path' => 'js/app.js',
+    'laravel_asset_bundling' => false,
+    'laravel_css_path' => 'css/app.css',
+    'laravel_js_path' => 'js/app.js',
 
     /*
     |--------------------------------------------------------------------------
@@ -301,11 +302,8 @@ return [
         // Navbar items:
         [
             'type' => 'navbar-search',
-            'text' => 'Поиск по товарам',
+            'text' => 'search',
             'topnav_right' => true,
-            'url' => 'admin/search',
-            'method' => 'get',
-            'input_name' => 'searchTerm',
         ],
         [
             'type' => 'fullscreen-widget',
@@ -313,170 +311,87 @@ return [
         ],
 
         // Sidebar items:
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'Поиск2',
-        //     'url' => 'admin/search',
-        //     'method' => 'post',
-        //     'input_name' => 'searchVal',
-        // ],
-
-        // [
-        //     'text' => 'pages',
-        //     'url' => 'admin/pages',
-        //     'icon' => 'far fa-fw fa-file',
-        //     'label' => 4,
-        //     'label_color' => 'success',
-
-        // ],
-
-        ['header' => 'information'],
         [
-            'text' => 'Контент',
-            'url' => 'admin/content',
-            'icon' => 'fas  fa-fw fa-newspaper',
-            'can' => 'manage content',
+            'type' => 'sidebar-menu-search',
+            'text' => 'search',
         ],
         [
-            'text' => 'Справочники',
-            'url' => 'admin/model',
-            'icon' => 'fas  fa-fw fa-folder',
-            // 'can' => 'manage content', TODO
-        ],
-
-
-
-        [
-            'header' => 'orders',
-            'can' => 'manage content',
+            'text' => 'blog',
+            'url' => 'admin/blog',
+            'can' => 'manage-blog',
         ],
         [
-            'text' => 'Заказы и сообщения',
-            'url' => 'admin/all_orders',
-            'icon' => 'fas  fa-fw fa-newspaper',
-            'can' => 'manage content',
-        ],
-
-
-        // [
-        //     'text' => 'Справочники ',
-        //     'icon' => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Ценовой сегмент',
-        //             'url' => 'admin/price_segment',
-        //         ],
-        //         [
-        //             'text' => 'Расположение товаров',
-        //             'url' => 'admin/product_location',
-        //         ],
-
-        //         [
-        //             'text' => 'Фабрики',
-        //             'url' => 'admin/vendor',
-        //         ],
-        //     ],
-        // ],
-
-
-
-
-        // [
-        //     'text' => 'multilevel',
-        //     'icon' => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url' => '#',
-        //                 ],
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url' => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url' => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url' => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //         ],
-        //     ],
-        // ],
-        ['header' => 'important'],
-        [
-            'text' => 'Импорт данных',
-            'url' => 'admin/import',
-            'icon' => 'fas fa-fw fa-bug ',
-            'can' => 'manage content',
-        ],
-
-        [
-            'text' => 'Роли и доступы',
-            'url' => 'admin/rap',
+            'text' => 'pages',
+            'url' => 'admin/pages',
             'icon' => 'far fa-fw fa-file',
-            'can' => 'manage roles',
+            'label' => 4,
+            'label_color' => 'success',
         ],
-        [
-            'text' => 'Пользователи',
-            'url' => 'admin/user',
-            'icon' => 'fas fa-fw fa-user',
-            'can' => 'manage users',
-        ],
-
-
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url' => 'profile',
+            'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
-            'target' => '_blank',
         ],
-        // [
-        //     'text' => 'change_password',
-        //     'url' => 'admin/profile',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
         [
-            'text' => 'Logs',
-            'url' => 'log-viewer',
-            'icon' => 'fas fa-fw fa-bug ',
-            'target' => '_blank',
-            'can' => 'manage users',
+            'text' => 'change_password',
+            'url' => 'admin/settings',
+            'icon' => 'fas fa-fw fa-lock',
         ],
-        // ['header' => 'labels'],
-        // [
-        //     'text' => 'important',
-        //     'icon_color' => 'red',
-        //     'url' => '#',
-        // ],
-        // [
-        //     'text' => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url' => '#',
-        // ],
-        // [
-        //     'text' => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url' => '#',
-        // ],
-
+        [
+            'text' => 'multilevel',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'level_one',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'level_one',
+                    'url' => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'level_two',
+                            'url' => '#',
+                        ],
+                        [
+                            'text' => 'level_two',
+                            'url' => '#',
+                            'submenu' => [
+                                [
+                                    'text' => 'level_three',
+                                    'url' => '#',
+                                ],
+                                [
+                                    'text' => 'level_three',
+                                    'url' => '#',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'text' => 'level_one',
+                    'url' => '#',
+                ],
+            ],
+        ],
+        ['header' => 'labels'],
+        [
+            'text' => 'important',
+            'icon_color' => 'red',
+            'url' => '#',
+        ],
+        [
+            'text' => 'warning',
+            'icon_color' => 'yellow',
+            'url' => '#',
+        ],
+        [
+            'text' => 'information',
+            'icon_color' => 'cyan',
+            'url' => '#',
+        ],
     ],
 
     /*
@@ -631,5 +546,5 @@ return [
     |
     */
 
-    'livewire' => true,
+    'livewire' => false,
 ];
