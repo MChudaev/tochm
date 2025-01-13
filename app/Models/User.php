@@ -22,8 +22,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
+        'patronymic',
         'email',
         'password',
+        'phone_number',
     ];
 
     /**
@@ -47,5 +50,22 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getFioAttribute()
+    {
+        return @$this->last_name . " " . @$this->name . " " . @$this->patronymic;
+    }
+
+
+    public function getUserRolesAttribute()
+    {
+
+        $roles_string = '';
+        $roles        = $this->getRoleNames();
+        foreach ($roles as $key) {
+            $roles_string .= $key . ' ';
+        }
+        return $roles_string;
     }
 }
