@@ -1,0 +1,46 @@
+name: Auto deploy mebel
+
+on: [push]
+
+jobs:
+
+  deploy-dev-to-site:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Deploy project files to PROD site /opt/php82/bin/php
+      env:
+        SSH_USERNAME: DATA
+        SSH_HOST:  DATA
+        SSH_PORT: 22
+        dir: /var/www/ DATA
+        PHP: /opt/php82/bin/php
+        ENV: ${{ vars.ENV }}
+      uses: appleboy/ssh-action@master
+      with:
+        HOST: DATA
+        USERNAME:  DATA
+        PASSWORD:  DATA
+        KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        PORT: 22
+        DEBUG: true
+        script: |
+          echo $dir
+          echo $PHP
+          echo $ENV
+          cd /var/www/ DATA
+          echo "${{ vars.ENV }}" > ${{ vars.DIR }}/.env
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          /opt/php82/bin/php -v
+          /opt/php82/bin/php /usr/local/bin/composer install
+          chmod -R 777 bootstrap/cache/
+          chmod -R 777 storage/
+
+          /opt/php82/bin/php artisan migrate --force
+          /opt/php82/bin/php artisan key:generate
+          /opt/php82/bin/php artisan log-viewer:publish
+          /opt/php82/bin/php artisan op:c
+          /opt/php82/bin/php artisan queue:restart
