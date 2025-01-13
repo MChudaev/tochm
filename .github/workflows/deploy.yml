@@ -10,17 +10,17 @@ jobs:
     steps:
     - name: Deploy project files to PROD site /opt/php82/bin/php
       env:
-        SSH_USERNAME: DATA
-        SSH_HOST:  DATA
+        SSH_USERNAME: p764019
+        SSH_HOST:  p764019.ftp.ihc.ru
         SSH_PORT: 22
-        dir: /var/www/ DATA
+        dir: /home/p764019/www/p764019.ihc.xyz
         PHP: /opt/php82/bin/php
         ENV: ${{ vars.ENV }}
       uses: appleboy/ssh-action@master
       with:
-        HOST: DATA
-        USERNAME:  DATA
-        PASSWORD:  DATA
+        HOST: p764019.ftp.ihc.ru
+        USERNAME:  p764019
+        PASSWORD:  6QDi4k2q9X
         KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         PORT: 22
         DEBUG: true
@@ -28,7 +28,7 @@ jobs:
           echo $dir
           echo $PHP
           echo $ENV
-          cd /var/www/ DATA
+          cd /home/p764019/www/p764019.ihc.xyz
           echo "${{ vars.ENV }}" > ${{ vars.DIR }}/.env
 
           git fetch origin main
